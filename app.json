@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dokku": {
+      "postdeploy": "_build/prod/rel/vaccine_tracker/bin/vaccine_tracker eval \"VaccineTracker.Release.migrate\""
+    }
+  }
+}
