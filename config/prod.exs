@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :vaccine_tracker, VaccineTrackerWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [host: "covid19asi.furkanural.dev", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
