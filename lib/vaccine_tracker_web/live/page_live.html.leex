@@ -5,18 +5,18 @@
   <div class="board">
     <div class="board-item">
       <h2 class="board-item-header">Uygulanan Aşı</h2>
-      <h3 class="board-item-count"><%= format_number(@vaccine.today, ".") %></h3>
-      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total, ".") %></p>
+      <h3 class="board-item-count"><%= format_number(@vaccine.today) %></h3>
+      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total) %></p>
     </div>
     <div class="board-item">
       <h2 class="board-item-header">1. Doz</h2>
-      <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_one, ".") %></h3>
-      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_one, ".") %></p>
+      <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_one) %></h3>
+      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_one) %></p>
     </div>
     <div class="board-item">
       <h2 class="board-item-header">2. Doz</h2>
-      <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_two, ".") %></h3>
-      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_two, ".") %></p>
+      <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_two) %></h3>
+      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_two) %></p>
     </div>
   </div>
 
