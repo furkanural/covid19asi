@@ -19,6 +19,6 @@ defmodule VaccineTrackerWorker.Worker do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 1800000) # In 30 minutes
+    Process.send_after(self(), :work, 60000) # In 30 minutes
   end
 end
