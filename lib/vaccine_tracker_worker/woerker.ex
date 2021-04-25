@@ -8,7 +8,7 @@ defmodule VaccineTrackerWorker.Worker do
   end
 
   def init(state) do
-    schedule_work()
+    first_call()
     {:ok, state}
   end
 
@@ -20,5 +20,9 @@ defmodule VaccineTrackerWorker.Worker do
 
   defp schedule_work() do
     Process.send_after(self(), :work, 1800000) # In 30 minutes
+  end
+
+  defp first_call() do
+    Process.send(self(), :work, [:noconnect])
   end
 end
