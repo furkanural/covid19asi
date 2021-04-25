@@ -9,6 +9,12 @@ defmodule VaccineTrackerWeb.PageLive do
     {:ok, assign(socket, vaccine: Vaccines.get_last())}
   end
 
+  def format_date(date) do
+    Calendar.put_time_zone_database(Tzdata.TimeZoneDatabase)
+
+    DateTime.shift_zone!(date, "Europe/Istanbul") |> DateTime.to_naive |> NaiveDateTime.to_string
+  end
+
   defp format_number_string(string, join \\ " ", delimer \\ ".") do
     string
     |> String.split(delimer)

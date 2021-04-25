@@ -20,5 +20,5 @@
     </div>
   </div>
 
-  <p class="info">Veriler <a href="https://covid19asi.saglik.gov.tr/" target="_blank">covid19asi.saglik.gov.tr</a> adresinden alınmaktadır. Son Güncelleme <%= @vaccine.updated_at %></p>
+  <p class="info">Veriler <a href="https://covid19asi.saglik.gov.tr/" target="_blank">covid19asi.saglik.gov.tr</a> adresinden alınmaktadır. Son Güncelleme <%= format_date(@vaccine.updated_at) %></p>
 </main>

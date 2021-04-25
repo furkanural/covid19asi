@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :vaccine_tracker,
-  ecto_repos: [VaccineTracker.Repo]
+  ecto_repos: [VaccineTracker.Repo],
+  time_zone_database: Tzdata.TimeZoneDatabase
 
 # Configures the endpoint
 config :vaccine_tracker, VaccineTrackerWeb.Endpoint,

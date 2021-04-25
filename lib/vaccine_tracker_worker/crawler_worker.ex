@@ -16,7 +16,10 @@ defmodule VaccineTrackerWorker.CrawlerWorker do
   end
 
   def update_or_create_vaccine(vaccine, attr) do
-    case is_same_day(vaccine.inserted_at, NaiveDateTime.local_now()) do
+    Calendar.put_time_zone_database(Tzdata.TimeZoneDatabase)
+    inserted_at = DateTime.shift_zone!(vaccine.inserted_at, "Europe/Istanbul") |> DateTime.to_naive
+
+    case is_same_day(inserted_at, NaiveDateTime.local_now()) do
       true ->
         updated_attr =
           attr

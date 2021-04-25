@@ -9,7 +9,7 @@ defmodule VaccineTracker.Vaccines.Vaccine do
     field :today_dose_one, :integer
     field :today_dose_two, :integer
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   def changeset(vaccine, params \\ %{}) do
