@@ -19,6 +19,34 @@
       <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_two) %></p>
     </div>
   </div>
+  <button phx-click="show_past_days">Geçmiş Günleri Göster</button>
 
-  <p class="info">Veriler <a href="https://covid19asi.saglik.gov.tr/" target="_blank">covid19asi.saglik.gov.tr</a> adresinden alınmaktadır. Son Güncelleme <%= format_date(@vaccine.updated_at) %></p>
+  <%= if length(@vaccines) != 0 do %>
+    <div class="past-days">
+      <%= for vaccine <- @vaccines do %>
+        <div class="vaccine-item">
+          <div class="vaccine-date">
+            <h4><%= format_date(vaccine.updated_at) %></h4>
+          </div>
+          <div class="vaccine-detail">
+            <div class="vaccine-detail-item">
+              <h6>Uygulanan</h6>
+              <h5><%= format_number(vaccine.today) %></h5>
+            </div>
+            <div class="vaccine-detail-item">
+              <h6>1. Doz</h6>
+              <h5><%= format_number(vaccine.today_dose_one) %></h5>
+            </div>
+            <div class="vaccine-detail-item">
+              <h6>2. Doz</h6>
+              <h5><%= format_number(vaccine.today_dose_two) %></h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <button phx-click="hide_past_days">Geçmiş Günleri Gizle</button>
+    </div>
+  <% end %>
+
+  <p class="info">Veriler <a href="https://covid19asi.saglik.gov.tr/" target="_blank">covid19asi.saglik.gov.tr</a> adresinden alınmaktadır. Son Güncelleme <%= format_datetime(@vaccine.updated_at) %></p>
 </main>

@@ -6,13 +6,31 @@ defmodule VaccineTrackerWeb.PageLive do
   @impl true
   def mount(_params, _session, socket) do
 
-    {:ok, assign(socket, vaccine: Vaccines.get_last())}
+    {:ok, assign(socket, vaccines: [],  vaccine: Vaccines.get_last())}
+  end
+
+  @impl true
+  def handle_event("show_past_days", _, socket) do
+    socket = assign(socket, vaccines: Vaccines.all())
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("hide_past_days", _, socket) do
+    socket = assign(socket, vaccines: [])
+    {:noreply, socket}
+  end
+
+  def format_datetime(date) do
+    Calendar.put_time_zone_database(Tzdata.TimeZoneDatabase)
+
+    DateTime.shift_zone!(date, "Europe/Istanbul") |> DateTime.to_naive |> NaiveDateTime.to_string
   end
 
   def format_date(date) do
     Calendar.put_time_zone_database(Tzdata.TimeZoneDatabase)
 
-    DateTime.shift_zone!(date, "Europe/Istanbul") |> DateTime.to_naive |> NaiveDateTime.to_string
+    date |> DateTime.shift_zone!("Europe/Istanbul") |> DateTime.to_date() |> Date.to_iso8601()
   end
 
   defp format_number_string(string, join \\ " ", delimer \\ ".") do

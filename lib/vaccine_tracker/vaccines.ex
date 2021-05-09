@@ -10,6 +10,12 @@ defmodule VaccineTracker.Vaccines do
     |> Repo.one
   end
 
+  def all do
+    Vaccine
+    |> Ecto.Query.order_by(desc: :inserted_at)
+    |> Repo.all
+  end
+
   @spec create_vaccine(
           :invalid
           | %{optional(:__struct__) => none, optional(atom | binary) => any}
