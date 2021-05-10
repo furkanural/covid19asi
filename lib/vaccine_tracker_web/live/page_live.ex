@@ -3,10 +3,17 @@ defmodule VaccineTrackerWeb.PageLive do
 
   alias VaccineTracker.Vaccines, as: Vaccines
 
+
   @impl true
   def mount(_params, _session, socket) do
+    Vaccines.subscribe()
 
     {:ok, assign(socket, vaccines: [],  vaccine: Vaccines.get_last())}
+  end
+
+  @impl true
+  def handle_info({Vaccines, [:vaccine | _], _}, socket) do
+    {:noreply, assign(socket, vaccines: [],  vaccine: Vaccines.get_last())}
   end
 
   @impl true

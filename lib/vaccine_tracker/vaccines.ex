@@ -4,6 +4,18 @@ defmodule VaccineTracker.Vaccines do
 
   alias VaccineTracker.Vaccines.Vaccine
 
+  @vaccine inspect(__MODULE__)
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(VaccineTracker.PubSub, @vaccine)
+  end
+
+  defp broadcast_change({:ok, result}, event) do
+    Phoenix.PubSub.broadcast(VaccineTracker.PubSub, @vaccine, {__MODULE__, event, result})
+
+    {:ok, result}
+  end
+
   def get_last do
     Vaccine
     |> Ecto.Query.first([desc: :updated_at])
@@ -30,5 +42,6 @@ defmodule VaccineTracker.Vaccines do
     vaccine
     |> Vaccine.changeset(attrs)
     |> Repo.update()
+    |> broadcast_change([:vaccine, :updated])
   end
 end
