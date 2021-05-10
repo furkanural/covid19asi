@@ -25,6 +25,7 @@ defmodule VaccineTracker.Vaccines do
   def all do
     Vaccine
     |> Ecto.Query.order_by(desc: :inserted_at)
+    |> Ecto.Query.offset(1)
     |> Repo.all
   end
 
