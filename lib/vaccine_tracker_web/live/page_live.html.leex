@@ -18,6 +18,11 @@
       <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_two) %></h3>
       <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_two) %></p>
     </div>
+    <div class="board-item">
+      <h2 class="board-item-header">3. Doz</h2>
+      <h3 class="board-item-count"><%= format_number(@vaccine.today_dose_three) %></h3>
+      <p class="board-item-total">Toplam: <%= format_number(@vaccine.total_dose_three) %></p>
+    </div>
   </div>
   <button phx-click="show_past_days">Geçmiş Günleri Göster</button>
 
@@ -41,6 +46,12 @@
               <h6>2. Doz</h6>
               <h5><%= format_number(vaccine.today_dose_two) %></h5>
             </div>
+            <%= if vaccine.today_dose_three != 0 do %>
+              <div class="vaccine-detail-item">
+                <h6>3. Doz</h6>
+                <h5><%= format_number(vaccine.today_dose_three) %></h5>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
