@@ -33,9 +33,6 @@ defmodule VaccineTrackerWorker.CrawlerWorker do
           |> Map.update!(:today_dose_two, fn _ ->
             attr.total_dose_two - vaccine.total_dose_two + vaccine.today_dose_two
           end)
-          |> Map.update!(:today_dose_three, fn _ ->
-            attr.total_dose_three - vaccine.total_dose_three + vaccine.today_dose_three
-          end)
 
         Vaccines.update_vaccine(vaccine, updated_attr)
       false ->
@@ -49,9 +46,6 @@ defmodule VaccineTrackerWorker.CrawlerWorker do
         |> Map.update!(:today_dose_two, fn _ ->
           attr.total_dose_two - vaccine.total_dose_two
         end)
-        |> Map.update!(:today_dose_three, fn _ ->
-          attr.total_dose_three - vaccine.total_dose_three
-        end)
         |> Vaccines.create_vaccine
     end
   end
@@ -61,14 +55,12 @@ defmodule VaccineTrackerWorker.CrawlerWorker do
 
   defp attr(scripts) do
     %{
-      total: find_in_scripts(scripts, "toplamasidozusayisi") |> String.replace(".", "") |> IO.inspect(label: "toplamasidozusayisi") |> String.to_integer(),
-      total_dose_one: find_in_scripts(scripts, "doz1asisayisi") |> String.replace(".", "") |> String.to_integer(),
-      total_dose_two: find_in_scripts(scripts, "doz2asisayisi") |> String.replace(".", "") |> String.to_integer(),
-      total_dose_three: find_in_scripts(scripts, "doz3asisayisi") |> String.replace(".", "") |> IO.inspect(label: "asiyapilankisisayisi3Doz") |> String.to_integer(),
+      total: find_in_scripts(scripts, "yapilanasisayisi") |> String.to_integer(),
+      total_dose_one: find_in_scripts(scripts, "asiyapilankisisayisi1Doz") |> String.to_integer(),
+      total_dose_two: find_in_scripts(scripts, "asiyapilankisisayisi2Doz") |> String.to_integer(),
       today: 0,
       today_dose_one: 0,
       today_dose_two: 0,
-      today_dose_three: 0
     }
   end
 
@@ -90,9 +82,9 @@ defmodule VaccineTrackerWorker.CrawlerWorker do
   end
 
   defp find_in_tuple([el], text) do
-    case Regex.match?(~r/var #{text} = '([\.0-9]*)';/, el) do
+    case Regex.match?(~r/var #{text} = ([0-9]*);/, el) do
       true ->
-        {:ok, Regex.scan(~r/var #{text} = '([\.0-9]*)';/, el) |> List.first() |> List.last()}
+        {:ok, Regex.scan(~r/var #{text} = ([0-9]*);/, el) |> List.first() |> List.last()}
       _ ->
         {:empty}
     end
