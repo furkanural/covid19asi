@@ -8,12 +8,12 @@ defmodule VaccineTrackerWorker.Worker do
   end
 
   def init(state) do
-    first_call()
+    # first_call()
     {:ok, state}
   end
 
   def handle_info(:work, state) do
-    perform()
+    # perform()
     schedule_work()
     {:noreply, state}
   end
